@@ -1,0 +1,22 @@
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout main repository
+      uses: actions/checkout@v2
+      with:
+        path: 'main-repo'
+
+    - name: Checkout remote Unity project repository
+      uses: actions/checkout@v2
+      with:
+        repository: 'username/unity-project-repo'
+        token: ${{ secrets.MY_GITHUB_TOKEN }}
+        path: 'unity-project'
+
+    - name: Setup Unity Environment
+      uses: game-ci/unity-builder@v2
+      with:
+        projectPath: unity-project
+        unityVersion: '2020.3.0f1'
+        targetPlatform: StandaloneWindows64
